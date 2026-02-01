@@ -2,5 +2,5 @@
 
 int screenReady()
 {
-    return 1;
+    return 0;
 }

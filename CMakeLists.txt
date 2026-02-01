@@ -42,13 +42,14 @@ pico_set_program_version(MicroDesk "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(MicroDesk 0)
-pico_enable_stdio_usb(MicroDesk 0)
+pico_enable_stdio_usb(MicroDesk 1)
 
 add_library(screen_lib STATIC
     core/screen/screen.c
     core/filesystem/filesystem.c
     core/network/net.c
     core/system.c
+    core/utils/shell.c
 )
 
 # Add the standard library to the build

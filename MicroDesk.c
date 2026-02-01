@@ -4,6 +4,7 @@
 #include "core/screen/screen.h"
 #include "core/filesystem/filesystem.h"
 #include "core/network/net.h"
+#include "core/utils/shell.h"
 #include "core/system.h"
 
 int main()
@@ -12,14 +13,10 @@ int main()
 
     if (filesystemReady())
         printf("Filesystem exists and he is ready!\n");
-    if (networkReady())
+    if (netReady())
         printf("Network exists and he is ready!\n");
-    if (screenReady())
-        printf("The screen is ready!\n");
-    if (!systemReady()) {
-        printf("System isn't ready, we have to abort the program\n");
-        exit(1);
-    }
+    if (!screenReady())
+        shell();
 
     while (true) {
     }
