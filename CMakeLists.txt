@@ -53,6 +53,9 @@ add_library(screen_lib STATIC
     core/network/net.c
     core/system.c
     core/utils/shell.c
+    core/utils/commands.c
+    core/utils/luastd.c
+    core/utils/lib.c
     ${LUA}
     ${LUA_WRAPPER}
 )
