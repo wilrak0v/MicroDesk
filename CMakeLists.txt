@@ -44,12 +44,17 @@ pico_set_program_version(MicroDesk "0.1")
 pico_enable_stdio_uart(MicroDesk 0)
 pico_enable_stdio_usb(MicroDesk 1)
 
+file(GLOB LUA_WRAPPER "lib/*.c")
+file(GLOB LUA "lib/lua/*.c")
+
 add_library(screen_lib STATIC
     core/screen/screen.c
     core/filesystem/filesystem.c
     core/network/net.c
     core/system.c
     core/utils/shell.c
+    ${LUA}
+    ${LUA_WRAPPER}
 )
 
 # Add the standard library to the build

@@ -6,6 +6,10 @@
 #include "../screen/screen.h"
 #include "../filesystem/filesystem.h"
 #include "../network/net.h"
+#include "../../lib/LuaWrapper.h"
+#include "../../lib/lua/lua.h"
+#include "../../lib/lua/lualib.h"
+#include "../../lib/lua/lauxlib.h"
 
 // Utils function
 void getElements(char command[25], char function[10], char args[15]);
@@ -16,5 +20,6 @@ void serial_fgets(char *buf, size_t bufsize);
 void neofetch();
 void info(char args[15]);
 void clear();
+void luaInter();
 
 #endif

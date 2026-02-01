@@ -47,6 +47,7 @@ void execute(char command[25]) {
     if (strcmp(function, "neofetch") == 0) neofetch();
     else if (strcmp(function, "info") == 0) info(args);
     else if (strcmp(function, "clear") == 0 || !strcmp(function, "cls")) clear();
+    else if (strcmp(function, "lua") == 0) luaInter();
 }
 
 
@@ -78,4 +79,16 @@ void info(char args[15]) {
 
 void clear() {
     for (char i=0; i<20; i++) printf("\n");
+}
+
+void luaInter() {
+    lua_State *lua;
+    lua = lua_wrapper_new();
+    char script[40];
+    while(1) {
+        printf("You can write your command just down\n");
+        serial_fgets(script, sizeof script);
+        int err = lua_dostring(lua, script);
+        if (err) printf("ERROR: your script doesn't work I think.\n");
+    }
 }
