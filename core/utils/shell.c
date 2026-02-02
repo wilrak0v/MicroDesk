@@ -29,7 +29,6 @@ void execute(char command[25]) {
     else if (strcmp(function, "info") == 0) info(args);
     else if (strcmp(function, "clear") == 0 || !strcmp(function, "cls")) clear();
     else if (strcmp(function, "lua") == 0) luaInter();
-    else if (strcmp(function, "help") == 0) help(args);
     else if (!strcmp(function, "version")) version();
     else if (!strcmp(function, "about")) about();
 }

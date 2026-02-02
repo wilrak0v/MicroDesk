@@ -6,6 +6,7 @@
 #include "../screen/screen.h"
 #include "../filesystem/filesystem.h"
 #include "../network/net.h"
+#include "lib.h"
 
 void neofetch();
 void info(char args[15]);

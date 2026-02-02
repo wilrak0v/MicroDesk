@@ -6,15 +6,17 @@
 #include "core/network/net.h"
 #include "core/utils/shell.h"
 #include "core/system.h"
+#include "core/utils/lib.h"
 
 int main()
 {
     stdio_init_all();
 
+    init();
     if (filesystemReady())
-        printf("Filesystem exists and he is ready!\n");
+        print("Filesystem exists and he is ready!\n");
     if (netReady())
-        printf("Network exists and he is ready!\n");
+        print("Network exists and he is ready!\n");
     if (!screenReady())
         shell();
 

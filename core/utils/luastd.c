@@ -31,6 +31,12 @@ static int luaInfo(lua_State *L) {
     return 0;
 }
 
+static int luaPuts(lua_State *L) {
+    const char *s = luaL_checkstring(L, 1);
+    print(s);
+    return 0;
+}
+
 static int luaStop(lua_State *L) {
     run = 0;
     return 0;
@@ -42,6 +48,7 @@ void luaRegister(lua_State *lua) {
     lua_register(lua, "version", luaVersion);
     lua_register(lua, "about", luaAbout);
     lua_register(lua, "info", luaInfo);
+    lua_register(lua, "puts", luaPuts);
     lua_register(lua, "exit", luaStop);
 }
 
@@ -51,9 +58,11 @@ void luaInter() {
     lua = lua_wrapper_new();
     luaRegister(lua);
     char script[40];
+    print("# Lua 5.3.6 REPL\n");
     while(run) {
         serial_fgets(script, sizeof script);
         int err = lua_dostring(lua, script);
-        if (err) printf("\nERROR: your script doesn't work I think.\n");
+        if (err)
+            print("\nERROR: your script doesn't work I think.\n");
     }
 }
