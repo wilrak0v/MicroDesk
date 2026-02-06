@@ -1,52 +1,34 @@
 # Generated Cmake Pico project file
-
 cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Initialise pico_sdk from installed location
-# (note this can come from environment, CMake cache etc)
-
-# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
+# --- Configuration SDK Pico (Auto-généré par l'extension) ---
 if(WIN32)
     set(USERHOME $ENV{USERPROFILE})
 else()
     set(USERHOME $ENV{HOME})
 endif()
 set(sdkVersion 2.2.0)
-set(toolchainVersion 13_2_Rel1)
-set(picotoolVersion 2.2.0-a4)
 set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
 if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
-# ====================================================================================
-set(PICO_BOARD pico2 CACHE STRING "Board type")
 
-# Pull in Raspberry Pi Pico SDK (must be before project)
+set(PICO_BOARD pico2 CACHE STRING "Board type")
 include(pico_sdk_import.cmake)
 
 project(MicroDesk C CXX ASM)
-
-# Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add executable. Default name is the project name, version 0.1
-
-add_executable(MicroDesk MicroDesk.c )
-
-pico_set_program_name(MicroDesk "MicroDesk")
-pico_set_program_version(MicroDesk "0.1")
-
-# Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(MicroDesk 0)
-pico_enable_stdio_usb(MicroDesk 1)
-
+# --- Sources ---
+# Note : Éviter GLOB autant que possible, mais on garde ta structure ici
 file(GLOB LUA_WRAPPER "lib/*.c")
 file(GLOB LUA "lib/lua/*.c")
 
+# --- Création de la librairie interne ---
 add_library(screen_lib STATIC
     core/screen/screen.c
     core/filesystem/filesystem.c
@@ -55,21 +37,38 @@ add_library(screen_lib STATIC
     core/utils/shell.c
     core/utils/commands.c
     core/utils/luastd.c
-    core/utils/lib.c
+    core/utils/lib.c       # Ton fichier lib.c est ici
     ${LUA}
     ${LUA_WRAPPER}
 )
 
-# Add the standard library to the build
-target_link_libraries(MicroDesk
-    PRIVATE screen_lib
-    pico_stdlib
+# CRUCIAL : On lie pico_stdlib à la LIBRAIRIE aussi.
+# Cela permet à lib.c de trouver "pico/stdlib.h"
+target_link_libraries(screen_lib 
+    pico_stdlib 
+    pico_multicore # Optionnel, souvent utile sur Pico 2
 )
 
-# Add the standard include files to the build
-target_include_directories(MicroDesk PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR}
+# On définit les dossiers d'inclusion pour que "lib.h" soit trouvé partout
+target_include_directories(screen_lib PUBLIC 
+    ${CMAKE_CURRENT_LIST_DIR}
+    core/utils
+    lib/lua
+)
+
+# --- Création de l'Exécutable ---
+add_executable(MicroDesk MicroDesk.c)
+
+pico_set_program_name(MicroDesk "MicroDesk")
+pico_set_program_version(MicroDesk "0.1")
+
+# Configuration des sorties (USB activé, UART désactivé)
+pico_enable_stdio_uart(MicroDesk 0)
+pico_enable_stdio_usb(MicroDesk 1)
+
+# Liaison de l'exécutable avec notre lib
+target_link_libraries(MicroDesk
+    PRIVATE screen_lib
 )
 
 pico_add_extra_outputs(MicroDesk)
-

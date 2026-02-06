@@ -11,6 +11,8 @@
 int main()
 {
     stdio_init_all();
+    sleep_ms(1000);
+    print("System Ready\n");
 
     init();
     if (filesystemReady())
@@ -21,5 +23,6 @@ int main()
         shell();
 
     while (true) {
+        filesystemReady();
     }
 }

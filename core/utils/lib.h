@@ -1,6 +1,7 @@
 #ifndef LIB_H
 #define LIB_H
 
+#include "pico/stdlib.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -17,6 +18,7 @@ void print(const char *s);
 
 
 // Inputs
+int fgets_non_blocking(char *str, int num, int time);
 void serial_fgets(char *buf, size_t bufsize);
 
 #endif
