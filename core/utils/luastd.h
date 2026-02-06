@@ -1,5 +1,4 @@
-#ifndef LUASTD_H
-#define LUASTD_H
+#pragma once
 
 #include <stdio.h>
 #include "lib.h"
@@ -10,5 +9,3 @@
 #include "../../lib/lua/lauxlib.h"
 
 void luaInter();
-
-#endif

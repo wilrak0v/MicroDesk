@@ -1,11 +1,11 @@
-#ifndef COMMANDS_H
-#define COMMANDS_H
+#pragma once
 
 #include <stdio.h>
 #include <string.h>
 #include "../screen/screen.h"
 #include "../filesystem/filesystem.h"
 #include "../network/net.h"
+#include "data.h"
 #include "lib.h"
 
 void neofetch();
@@ -14,5 +14,3 @@ void clear();
 void help(char args[15]);
 void version();
 void about();
-
-#endif

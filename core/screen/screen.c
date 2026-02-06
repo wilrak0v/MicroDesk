@@ -1,6 +1,6 @@
 #include "screen.h"
 
-int screenReady()
+int screen_ready()
 {
     return 0;
 }

@@ -15,14 +15,13 @@ int main()
     print("System Ready\n");
 
     init();
-    if (filesystemReady())
+    if (is_fs)
         print("Filesystem exists and he is ready!\n");
-    if (netReady())
+    if (is_net)
         print("Network exists and he is ready!\n");
-    if (!screenReady())
+    if (!is_screen)
         shell();
 
     while (true) {
-        filesystemReady();
     }
 }

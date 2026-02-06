@@ -9,16 +9,22 @@ void neofetch() {
 void info(char args[15]) {
     print("# ");
     if (strcmp(args, "screen") == 0) {
-        if (screenReady()) print("Screen OK\n");
-        else print("Screen NO\n");
+        if (is_screen)
+            print("Screen OK\n");
+        else
+            print("Screen NO\n");
     }
     else if (strcmp(args, "network") == 0 || strcmp(args, "net") == 0) {
-        if (netReady()) print("Net OK\n");
-        else print("Net NO\n");
+        if (is_net)
+            print("Net OK\n");
+        else
+            print("Net NO\n");
     }
-    else if (strcmp(args, "sd") == 0) {
-        if (filesystemReady()) print("SD \033[32mOK[0m\n");
-        else print("SD NO\n");
+    else if (strcmp(args, "fs") == 0) {
+        if (is_fs)
+            print("SD OK\n");
+        else
+            print("SD NO\n");
     }
 
     else {
@@ -27,7 +33,8 @@ void info(char args[15]) {
 }
 
 void clear() {
-    for (char i=0; i<20; i++) print("\n");
+    for (char i=0; i<20; i++)
+        print("\n");
 }
 
 void version() {

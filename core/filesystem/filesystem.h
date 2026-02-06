@@ -5,6 +5,6 @@
 #include <stdio.h>
 #include <string.h>
 
-int filesystemReady();
+int fs_ready();
 
 #endif

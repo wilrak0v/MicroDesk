@@ -1,6 +1,3 @@
-#ifndef NET_H
-#define NET_H
+#pragma once
 
-int netReady();
-
-#endif
+int net_ready();

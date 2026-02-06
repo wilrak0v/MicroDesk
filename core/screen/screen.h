@@ -1,6 +1,3 @@
-#ifndef SCREEN_H
-#define SCREEN_H
+#pragma once
 
-int screenReady();
-
-#endif
+int screen_ready();

@@ -1,5 +1,5 @@
 #include "net.h"
 
-int netReady() {
+int net_ready() {
     return 0;
 }
