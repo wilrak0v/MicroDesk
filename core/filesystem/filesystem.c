@@ -6,32 +6,40 @@ int fs_ready() {
     char line[128];
     print("FS\n");
     if(fgets_non_blocking(line, sizeof(line), 5000000))
-        return !strcmp(line, "OK");
+        return !strstr(line, "OK");
     return 0;
 }
 
 int mkdir(const char* name) {
     if(!is_fs) return -1;
     printf("%d %s%s\n", MKDIR, path, name);
-    return getchar_timeout_us(100000) - '0';          // 1 si c'est bon, et tout le reste sera false
+    int c = getchar_timeout_us(100000);
+    if (c == PICO_ERROR_TIMEOUT) return -1;
+    return c - '0';          // 1 si c'est bon, et tout le reste sera false
 }
 
 int touch(const char* name) {
     if(!is_fs) return -1;
     printf("%d %s%s\n", TOUCH, path, name);
-    return getchar_timeout_us(100000) - '0';
+    int c = getchar_timeout_us(100000);
+    if (c == PICO_ERROR_TIMEOUT) return -1;
+    return c - '0';
 }
 
 int rm(const char* name) {
     if(!is_fs) return -1;
     printf("%d %s%s\n", RM, path, name);
-    return getchar_timeout_us(100000) - '0';
+    int c = getchar_timeout_us(100000);
+    if (c == PICO_ERROR_TIMEOUT) return -1;
+    return c - '0';
 }
 
 
 int storage_open(const char *path) {
     printf("%d %s\n", OPEN, path);
-    return getchar_timeout_us(100000) - '0';
+    int c = getchar_timeout_us(100000);
+    if (c == PICO_ERROR_TIMEOUT) return -1;
+    return c - '0';
 }
 
 int storage_get_size(int handle) {
@@ -70,7 +78,9 @@ int storage_read(int handle, void *buf, uint32_t len) {
 
 int storage_close(int handle) {
     printf("%d %d", CLOSE, handle);
-    return getchar_timeout_us(100000) - '0';
+    int c = getchar_timeout_us(100000);
+    if (c == PICO_ERROR_TIMEOUT) return -1;
+    return c - '0';
 }
 
 
@@ -98,7 +108,7 @@ int md_fopen(FIL *f, const char *path, const char* mode) {
 }
 
 int md_fread(void *ptr, uint32_t size, uint32_t count, FIL *f) {
-    if (!f || f->mode != FIL_READ)
+    if (!f || f->mode != FIL_READ || size < 0)
         return -1;
 
     uint32_t bytes = size * count;
@@ -117,7 +127,7 @@ int md_fread(void *ptr, uint32_t size, uint32_t count, FIL *f) {
 }
 
 int md_write(const void *ptr, uint32_t size, uint32_t count, FIL *f) {
-    if (!f || f->mode == FIL_READ)
+    if (!f || (f->mode != FIL_WRITE && f->mode != FIL_APPEND) || size < 0)
         return -1;
     uint32_t bytes = size * count;
 
