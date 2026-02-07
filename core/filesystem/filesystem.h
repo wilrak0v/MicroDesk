@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <string.h>
 
-enum commands { MKDIR,
+enum commands {
+    MKDIR,
     TOUCH,
     RM,
     OPEN,
