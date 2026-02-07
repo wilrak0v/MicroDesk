@@ -17,5 +17,7 @@ void print(const char *s);
 
 
 // Inputs
+void uart_write_bytes(const void *buf, int len);
+int uart_read_bytes(void *buf, int len, int timeout_us);
 int fgets_non_blocking(char *str, int num, int time);
 void serial_fgets(char *buf, size_t bufsize);

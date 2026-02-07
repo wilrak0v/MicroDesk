@@ -65,4 +65,5 @@ void luaInter() {
         if (err)
             print("\nERROR: your script doesn't work I think.\n");
     }
+    print("# Lua say to you goodbye!\n");
 }
