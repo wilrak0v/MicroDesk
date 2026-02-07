@@ -31,4 +31,8 @@ void execute(char command[25]) {
     else if (strcmp(function, "lua") == 0) luaInter();
     else if (!strcmp(function, "version")) version();
     else if (!strcmp(function, "about")) about();
+    else if (!strcmp(function, "mkdir")) ws_mkdir(args);
+    else if (!strcmp(function, "touch")) ws_touch(args);
+    else if (!strcmp(function, "rm")) ws_rm(args);
+    else if (!strcmp(function, "pwd")) pwd();
 }

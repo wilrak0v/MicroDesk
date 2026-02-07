@@ -47,3 +47,20 @@ void about() {
     print("`-----'`-'`-' \n");
     print("# MicroDesk - Simple Microcomputer based on RPi Pico 2.\n");
 }
+
+void ws_mkdir(char args[15]) {
+    if(!mkdir(args)) print("ERROR: FS doesn't work\n");
+}
+
+void ws_touch(char args[15]) {
+    if(!touch(args)) print("ERROR: FS doesn't works\n");
+}
+
+void ws_rm(char args[15]) {
+    if (!rm(args)) print("ERROR: FS doesn't works\n");
+}
+
+void pwd() {
+    print(path);
+    print("\n");
+}

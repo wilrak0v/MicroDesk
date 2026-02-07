@@ -14,3 +14,7 @@ void clear();
 void help(char args[15]);
 void version();
 void about();
+void ws_mkdir(char args[15]);
+void ws_touch(char args[15]);
+void ws_rm(char args[15]);
+void pwd();
